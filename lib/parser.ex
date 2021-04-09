@@ -1,4 +1,4 @@
-defmodule ParallelismReportsChallenge.Parse do
+defmodule ParallelismReportsChallenge.Parser do
   def parse_file(file_name) do
     "reports/#{file_name}"
     |> File.stream!()
