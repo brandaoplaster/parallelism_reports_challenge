@@ -75,17 +75,15 @@ defmodule ParallelismReportsChallenge do
          "hours_per_month" => hours_per_month,
          "hours_per_year" => hours_per_year
        }) do
+
     all_hours = Map.put(all_hours, name, all_hours[name] + quantity)
 
-    # hours_per_month =
-    #   Map.put(
-    #     hours_per_month,
-    #     name,
-    #     put_sub_maps(hours_per_month[name], set_month(month), quantity)
-    #   )
-
-      hours_per_month =
-        Map.put(hours_per_month, name, put_sub_maps(hours_per_month[name], month, quantity))
+    hours_per_month =
+      Map.put(
+        hours_per_month,
+        name,
+        put_sub_maps(hours_per_month[name], set_month(month), quantity)
+      )
 
     hours_per_year =
       Map.put(hours_per_year, name, put_sub_maps(hours_per_year[name], year, quantity))
@@ -114,7 +112,7 @@ defmodule ParallelismReportsChallenge do
   end
 
   defp report_acc do
-    months = Enum.into(1..12, %{}, &{&1, 0})
+    months = Enum.into(@months, %{}, &{&1, 0})
     years = Enum.into(2016..2020, %{}, &{&1, 0})
 
     all_hours = Enum.into(@user_list, %{}, &{&1, 0})
@@ -124,7 +122,7 @@ defmodule ParallelismReportsChallenge do
     build_report(all_hours, hours_per_month, hours_per_year)
   end
 
-  def build_report(all_hours, hours_per_month, hours_per_year) do
+  defp build_report(all_hours, hours_per_month, hours_per_year) do
     %{
       "all_hours" => all_hours,
       "hours_per_month" => hours_per_month,
